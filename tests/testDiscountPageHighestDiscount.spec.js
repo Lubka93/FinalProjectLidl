@@ -5,7 +5,6 @@ import { DiscountPage } from '../pages/DiscountPage.js';
 import { MainPage } from '../pages/MainPage.js'; 
 import { ProductElement } from '../pages/ProductElementPage.js';
 
-//import { mainModule } from 'process';
 
 test.describe('The highest discount filter - Verify the correct discount filter functionality', ()=>{ 
     let navPage, discountPage, mainPage, productElement;
@@ -46,9 +45,7 @@ test.describe('The highest discount filter - Verify the correct discount filter 
     await page.goto('/q/query/zlavy?pageId=10000274');
     await expect(page, 'User landed on discount page - URL verification').toHaveURL('/q/query/zlavy?pageId=10000274');
     await expect(discountPage.discountUITitle, 'User landed on discount page - UI verification').toHaveText('Zľavy');
-   // await page.goto('/q/query/zlavy?offset=0&sort=percentageDiscount-desc&discountFlag=1&price=100&price=10');
     await page.goto('https://www.lidl.sk/q/query/zlavy?sort=percentageDiscount-acs&discountFlag=1&price=100&price=10&category=M%C3%B3da');
-   // await expect(page).toHaveURL('/q/query/zlavy?offset=0&sort=percentageDiscount-desc&discountFlag=1&price=100&price=10');
     await expect(page).toHaveURL('https://www.lidl.sk/q/query/zlavy?sort=percentageDiscount-acs&discountFlag=1&price=100&price=10&category=M%C3%B3da');
     const getElementsObject = await productElement.getDiscountedPriceValuesFromCards();
     let result =  await productElement.checkFilteredElementsByDiscount(getElementsObject, 'asc');

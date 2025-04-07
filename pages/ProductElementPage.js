@@ -150,7 +150,7 @@ for (let i = 0; i < arrOfOriginalPrice.length; i++) {
       }
 
 if (expectedPercentage !== arrOfPercentage[i])  {
-        console.warn(`❌ Mismatch at index ${i}:`);
+        console.warn(`Mismatch at index ${i}:`);
         console.warn(`Original: ${original}, Discounted: ${discounted}`);
         console.warn(`Expected: ${expectedPercentage}%, Found: ${arrOfPercentage[i]}%\n`);
         allMatch = false;

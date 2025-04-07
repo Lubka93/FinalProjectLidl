@@ -4,7 +4,6 @@ import { NavPage } from '../pages/NavPage.js';
 import { DiscountPage } from '../pages/DiscountPage.js';
 import { MainPage } from '../pages/MainPage.js'; 
 
-//import { mainModule } from 'process';
 
 test.describe('UI - Verify the correct paths to the discount page', ()=>{ 
     let navPage, discountPage, mainPage;
