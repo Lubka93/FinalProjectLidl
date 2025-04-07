@@ -14,7 +14,7 @@ require('dotenv').config();
  */
 module.exports = defineConfig({
   retries: 2,
-  timeout: 120000, 
+  timeout: 180000, 
   testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -38,56 +38,28 @@ module.exports = defineConfig({
     trace: 'on-first-retry',
   },
 
-  
-  /* Configure projects for major browsers */
-  projects: [
-    { 
-      name: 'setup',
-      testMatch: /.*\.setup\.ts/,  // This ensures only setup files are run for the setup project
-    },
-    {
-      name: 'chromium',
-      use: { 
-        ...devices['Desktop Chrome'],
-        storageState: './.auth/user.json',  // Use storage state here
-        viewport: { width: 1920, height: 1080 },
+    projects: [
+      { 
+        name: 'setup',
+        testMatch: './tests/auth.setup.*' 
       },
-      dependencies: ['setup'],  // This makes sure the setup runs before 'chromium'
-      testMatch: /.*\.(test|spec)\.(ts|js)$/,  // Include .test.ts and .spec.ts files for chromium
-    },
-  
-  /*  {
-      name: 'firefox', // Corrected from 'firewox' to 'firefox'
-      use: { ...devices['Desktop Firefox'] },
-    },
-*/
+      {
+        name: 'Main',
+        use: {
+          ...devices['Desktop Chrome'], 
+          storageState: './.auth/user.json',
+        },
+        dependencies: ['setup'],
+        testIgnore: /.*Login\.spec\.*/,  
+      },
+      {
+        name: 'Auth',
+        use: {
+          ...devices['Desktop Chrome'],  
+        },
+        testMatch: /.*Login\.spec\.*/, 
+      }
+    ],
 
-  //   Test against mobile viewports. 
-                  // {
-                  //   name: 'Mobile Chrome',
-                  //   use: { ...devices['Pixel 5'] },
-                  // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
-  ],
-
-  /* Run your local dev server before starting the tests */
-  /* webServer: {
-     command: 'npm run start',
-     url: 'http://127.0.0.1:3000',
-     reuseExistingServer: !process.env.CI,
- },*/ 
 });
 

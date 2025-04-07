@@ -16,7 +16,7 @@ test.describe('Min/Max price filter - Verify the correct min/max price filter fu
     productElement = new ProductElement(page);
   });
  
-  test('Verify sorting by default min and max price', { tags: ['UI'] }, async ({ page }) => {
+  test('Verify sorting by default min and max price - @UI @smoke @slow', { tags: ['@UI', '@smoke', '@slow'] }, async ({ page }) => {
     let max = '1111';
     let min  = '0';
     await page.goto('/q/query/zlavy?pageId=10000274');
@@ -26,7 +26,7 @@ test.describe('Min/Max price filter - Verify the correct min/max price filter fu
   });  
 
 
-test('Verify sorting by min price', { tags: ['@UI'] }, async ({ page }) => {
+test('Verify sorting by min price - @UI @slow', { tags: ['@UI', '@slow'] }, async ({ page }) => {
   let max = '1111';
   let min  = '50';
   await page.goto(`/q/query/zlavy?pageId=10000274`);
@@ -38,7 +38,7 @@ test('Verify sorting by min price', { tags: ['@UI'] }, async ({ page }) => {
   await productElement.checkFilteredPriceByMaxMin(min, max);
 });
 
-test('Verify sorting by max price', { tags: ['@UI'] }, async ({ page }) => {
+test('Verify sorting by max price - @UI @slow', { tags: ['@UI', '@slow'] }, async ({ page }) => {
     let max = '50';
     let min  = '0';
     await page.goto('/q/query/zlavy?pageId=10000274');
@@ -50,7 +50,7 @@ test('Verify sorting by max price', { tags: ['@UI'] }, async ({ page }) => {
     await productElement.checkFilteredPriceByMaxMin(min, max);
 });
 
-test('Verify sorting by min and max price', { tags: ['@UI', '@smoke'] },  async ({ page }) => {
+test('Verify sorting by min and max price - @UI @slow', { tags: ['@UI', '@slow'] },  async ({ page }) => {
   let max = '100';
   let min  = '50';
   await page.goto('/q/query/zlavy?pageId=10000274');
@@ -63,7 +63,7 @@ test('Verify sorting by min and max price', { tags: ['@UI', '@smoke'] },  async 
 });
 
 
-test("API - Verify sorting by min price",{ tags: ['@API'] }, async ({ page }) => {
+test("API - Verify sorting by min price - @API @fast",{ tags: ['@API', '@fast'] }, async ({ page }) => {
   let max = '1111';
   let min  = '10';
   await page.goto('/q/query/zlavy?pageId=10000274');
@@ -77,7 +77,7 @@ test("API - Verify sorting by min price",{ tags: ['@API'] }, async ({ page }) =>
   await productElement.checkFilteredPriceByMaxMin(min, max, mainPrices);
 });
 
-test("API - Verify sorting by max price",{ tags: ['@API'] }, async ({ page }) => {
+test("API - Verify sorting by max price - @API @fast",{ tags: ['@API', '@fast'] }, async ({ page }) => {
   let max = '100';
   let min  = '0';
   await page.goto('/q/query/zlavy?pageId=10000274');
@@ -91,7 +91,7 @@ test("API - Verify sorting by max price",{ tags: ['@API'] }, async ({ page }) =>
   await productElement.checkFilteredPriceByMaxMin(min, max, mainPrices);
 });
 
-test("API - Verify sorting by min/max price",{ tags: ['@API', '@smoke'] }, async ({ page }) => {
+test("API - Verify sorting by min/max price - @API @smoke @fast",{ tags: ['@API', '@smoke', '@fast'] }, async ({ page }) => {
   let max = '100';
   let min  = '10';
   await page.goto('/q/query/zlavy?pageId=10000274');

@@ -26,14 +26,12 @@ export class ProductElement {
      let countBeforeScrollMiddle = await this.mainPriceValues.count();
      console.log('Total discounted price elements in the middle scrolling:', countBeforeScrollMiddle);
      await this.scrollDownToRevealElements();
-
-
-    const countAfterScroll = await this.mainPriceValues.count();
-    const countAfterScrollDiscountedPrices = await this.discountedPriceValues.count();
-    const countAfterScrollPercentage = await this.discountPercentage.count();
-    console.log('Total price elements after scrolling:', countAfterScroll, countAfterScrollDiscountedPrices, countAfterScrollPercentage);
-    await this.scrollDownToRevealElements();
-    await this.scrollDownToRevealElements();
+     const countAfterScroll = await this.mainPriceValues.count();
+     const countAfterScrollDiscountedPrices = await this.discountedPriceValues.count();
+     const countAfterScrollPercentage = await this.discountPercentage.count();
+     console.log('Total price elements after scrolling:', countAfterScroll, countAfterScrollDiscountedPrices, countAfterScrollPercentage);
+     await this.scrollDownToRevealElements();
+     await this.scrollDownToRevealElements();
 
   if (countAfterScroll !== 48 || countAfterScrollDiscountedPrices !== 48 || countAfterScrollPercentage !== 48) {
     console.warn("Element count mismatch after scrolling");
@@ -141,17 +139,17 @@ export class ProductElement {
     let allMatch = true;
     let expectedPercentage = null;
 
-    for (let i = 0; i < arrOfOriginalPrice.length; i++) {
+for (let i = 0; i < arrOfOriginalPrice.length; i++) {
       const original = arrOfOriginalPrice[i];
       const discounted = arrayDiscountedPrices[i];
-       expectedPercentage = Math.floor(((original - discounted) / original) * 100);    //If I want to round in clasic way!!!! ----> Math.floor(((original - discounted) / original) * 100);
+       expectedPercentage = Math.floor(((original - discounted) / original) * 100);    //If I want to round in clasic way!!!! ----> Math.round(((original - discounted) / original) * 100);
 
      // If expectedPercentage is lower than 10, set it to 0   // to deal with 'Najlacnejšie' sticker which is for discount lower than 10%
-     if (expectedPercentage < 10) {
+ if (expectedPercentage < 10) {
       expectedPercentage = 0;
       }
 
-       if (expectedPercentage !== arrOfPercentage[i])  {
+if (expectedPercentage !== arrOfPercentage[i])  {
         console.warn(`❌ Mismatch at index ${i}:`);
         console.warn(`Original: ${original}, Discounted: ${discounted}`);
         console.warn(`Expected: ${expectedPercentage}%, Found: ${arrOfPercentage[i]}%\n`);
@@ -159,20 +157,20 @@ export class ProductElement {
       }
     }
     
-    return {
+ return {
       areMatched: allMatch,
       areSorted: isSorted,
     }
   }
   
   
-  async  scrollDownToRevealElements() {
+async  scrollDownToRevealElements() {
     const viewportHeight = await this.page.evaluate('window.innerHeight');
     const scrollHeight = await this.page.evaluate('document.body.scrollHeight');
     
     let scrollPosition = 0;
 
-    while (scrollPosition < scrollHeight) {
+while (scrollPosition < scrollHeight) {
       await this.page.evaluate(() => {
         window.scrollBy(0, window.innerHeight / 10); 
       });
@@ -181,26 +179,24 @@ export class ProductElement {
     }
   }
   
-  async returnMainPricesFromAPI (response) {
+async returnMainPricesFromAPI (response) {
   const apiResponse = await response;
   const responseBody = await apiResponse.json();
-  console.log('API Response:', responseBody);
   const items = responseBody.items;
   const prices = items.map(item => item?.gridbox?.data?.price?.price);
   console.log('API array of main prices from API response body', prices);
   return prices;
   }
 
-  async returnDiscountDetailsFromAPI (response) {
+async returnDiscountDetailsFromAPI (response) {
     const apiResponse = await response;
     const responseBody = await apiResponse.json();
-    console.log('API Response:', responseBody);
     const items = responseBody.items;
     const discointedPricesAPI = items.map(item => item?.gridbox?.data?.price?.price);
     const originalPricesAPI = items.map(item => item?.gridbox?.data?.price?.discount?.deletedPrice);
     const percentageAPI = items.map(item => item?.gridbox?.data?.price?.discount?.percentageDiscount);
    
-    return {
+ return {
       prices: discointedPricesAPI, 
       originalPrices: originalPricesAPI, 
       percentage: percentageAPI

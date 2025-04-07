@@ -14,7 +14,7 @@ test.describe('UI - Verify the correct paths to the discount page', ()=>{
     discountPage = new DiscountPage(page);
     mainPage = new MainPage(page);
   });
-test('UI path - Go using direct nav bar (online shop) link',  { tags: ['@smoke', '@high'] }, async ({ page }) => {
+test('UI path - Go using direct nav bar (online shop) link - @smoke @slow',  { tags: ['@smoke', '@slow'] }, async ({ page }) => {
     await page.goto(`/`);
     await expect(page, 'Logged user landed on home page').toHaveURL('/');
     await expect(mainPage.welcomeHeader02, 'User landed at home page - UI verification').toBeVisible();
@@ -27,7 +27,7 @@ test('UI path - Go using direct nav bar (online shop) link',  { tags: ['@smoke',
     });
     
 
-test('UI path - Go using dicount block on home page', { tags: ['@low'] }, async ({ page }) => {
+test('UI path - Go using dicount block on home page - @low @slow', { tags: ['@low', '@slow'] }, async ({ page }) => {
     await page.goto(`/`);
     await expect(mainPage.welcomeHeader02, 'User landed at home page - UI verification').toBeVisible();
     await expect(mainPage.discountBlock, 'Verify that discount block in visible on page').toBeVisible();
@@ -37,7 +37,7 @@ test('UI path - Go using dicount block on home page', { tags: ['@low'] }, async 
 
 });
 
-test('UI path - Go using non-direct nav bar link using sandwitch menu',{ tags: ['@low'] }, async ({ page }) => { 
+test('UI path - Go using non-direct nav bar link using sandwitch menu - @low @slow',{ tags: ['@low', '@slow'] }, async ({ page }) => { 
   await page.goto(`/`);
   await expect(page, 'Logged user landed on home page').toHaveURL('/');
   await expect(mainPage.welcomeHeader02, 'User landed at home page - UI verification').toBeVisible();
@@ -48,7 +48,7 @@ test('UI path - Go using non-direct nav bar link using sandwitch menu',{ tags: [
   await expect(discountPage.discountUITitle).toHaveText('Zľavy');
 });
 
-test('URL path - Go to discount page using URLs',{ tags: ['@low'] }, async ({ page }) => {
+test('URL path - Go to discount page using URLs - @low @fast',{ tags: ['@low', '@fast'] }, async ({ page }) => {
   await page.goto(`/`);
   await expect(mainPage.welcomeHeader02, 'User landed at home page - UI verification').toBeVisible();
   await expect(mainPage.discountBlock, 'Verify that discount block in visible on page').toBeVisible();
