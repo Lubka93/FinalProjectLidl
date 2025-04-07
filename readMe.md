@@ -49,6 +49,6 @@ npx playwright test
 - In calculation of percentage I used Math.floor() in order to match the values on lidl.sk page. However, originally I used Math.round(), in that case some of percentage values were failing (correctly), I don't know the bussines requirement for the calculation, so I used Math.floor() in order to have passing tests.  
 ### Problems:
 - I had to use static waits for login and finding the elements (product cards), I know that is not good practise, but without them the test were too flaky and were failing. 
-- I wanted to use this patern for tags - { tags: ['@API', '@smoke', '@fast'] }. But It didn't work, I had to use tags inside description test in order to run -g/--grep flag. I don't know why I had the problem. Tags in description text worked just fine. 
+- I wanted to use this patern for tags - { tags: ['@API', '@smoke', '@fast'] }. But It didn't work, I had to use tags inside description text in order to run -g/--grep flag. I don't know why I had the problem. Tags in description text worked just fine. 
 
 
